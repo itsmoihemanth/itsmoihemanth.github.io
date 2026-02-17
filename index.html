@@ -43,6 +43,33 @@
             z-index: 9999;
         }
 
+        /* Floating gradient orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.4;
+            will-change: transform;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(79, 143, 247, 0.15), transparent 70%);
+            top: -50px;
+            left: -100px;
+        }
+
+        .orb-2 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(52, 211, 153, 0.1), transparent 70%);
+            bottom: 20%;
+            right: -80px;
+        }
+
         .container {
             max-width: 780px;
             margin: 0 auto;
@@ -53,6 +80,12 @@
         header {
             padding: 60px 0 40px;
             position: relative;
+            animation: fadeUp 0.5s ease-out both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .header-grid {
@@ -129,17 +162,13 @@
             border-color: var(--accent);
             color: var(--accent);
             background: var(--accent-dim);
+            transform: translateY(-2px);
         }
 
-        .header-links svg {
-            width: 18px;
-            height: 18px;
-        }
+        .header-links svg { width: 18px; height: 18px; }
 
         /* Sections */
-        section {
-            margin-bottom: 40px;
-        }
+        section { margin-bottom: 40px; }
 
         .section-label {
             font-size: 0.72rem;
@@ -148,6 +177,18 @@
             text-transform: uppercase;
             color: var(--accent);
             margin-bottom: 16px;
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* About */
@@ -169,11 +210,25 @@
             border-radius: var(--radius);
             padding: 20px 22px;
             margin-bottom: 12px;
-            transition: border-color 0.2s;
+            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(12px);
         }
+
+        .reveal.visible .card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal.visible .card:nth-child(2) { transition-delay: 0.08s; }
+        .reveal.visible .card:nth-child(3) { transition-delay: 0.16s; }
+        .reveal.visible .card:nth-child(4) { transition-delay: 0.24s; }
+        .reveal.visible .card:nth-child(5) { transition-delay: 0.32s; }
 
         .card:hover {
             border-color: rgba(79, 143, 247, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         }
 
         .card-header {
@@ -183,10 +238,7 @@
             margin-bottom: 6px;
         }
 
-        .card-title {
-            font-size: 1rem;
-            font-weight: 600;
-        }
+        .card-title { font-size: 1rem; font-weight: 600; }
 
         .card-meta {
             font-size: 0.82rem;
@@ -232,12 +284,23 @@
             margin-bottom: 12px;
             text-decoration: none;
             display: block;
-            transition: all 0.2s;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(12px);
         }
+
+        .reveal.visible .pub-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal.visible .pub-card:nth-child(3) { transition-delay: 0.08s; }
 
         .pub-card:hover {
             border-color: var(--accent);
             background: var(--surface-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         }
 
         .pub-venue {
@@ -268,7 +331,10 @@
             display: flex;
             align-items: center;
             gap: 4px;
+            transition: gap 0.2s;
         }
+
+        .pub-card:hover .pub-link-hint { gap: 8px; }
 
         /* Skills grid */
         .skills-grid {
@@ -318,21 +384,9 @@
 
         .edu-item:last-child { border-bottom: none; }
 
-        .edu-degree {
-            font-size: 0.92rem;
-            font-weight: 600;
-        }
-
-        .edu-school {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
-        .edu-year {
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-            white-space: nowrap;
-        }
+        .edu-degree { font-size: 0.92rem; font-weight: 600; }
+        .edu-school { font-size: 0.85rem; color: var(--text-secondary); }
+        .edu-year { font-size: 0.82rem; color: var(--text-secondary); white-space: nowrap; }
 
         /* Contact */
         .contact-row {
@@ -359,6 +413,7 @@
         .contact-btn:hover {
             border-color: var(--accent);
             background: var(--accent-dim);
+            transform: translateY(-2px);
         }
 
         .contact-btn.primary {
@@ -369,6 +424,7 @@
 
         .contact-btn.primary:hover {
             background: #3d7de0;
+            transform: translateY(-2px);
         }
 
         /* Footer */
@@ -397,26 +453,12 @@
             .contact-row { flex-direction: column; }
             .contact-btn { justify-content: center; }
         }
-
-        /* Animate in */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        section, header {
-            animation: fadeUp 0.5s ease-out both;
-        }
-
-        section:nth-child(2) { animation-delay: 0.05s; }
-        section:nth-child(3) { animation-delay: 0.1s; }
-        section:nth-child(4) { animation-delay: 0.15s; }
-        section:nth-child(5) { animation-delay: 0.2s; }
-        section:nth-child(6) { animation-delay: 0.25s; }
     </style>
 </head>
 <body>
     <div class="noise"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
     <div class="container">
 
         <header>
@@ -430,11 +472,11 @@
                     <a href="https://www.linkedin.com/in/hemanth-venkata-indurthi-99052219b/" target="_blank" rel="noopener" title="LinkedIn">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                     </a>
-                    <a href="mailto:hvindurthi@gmail.com" title="Email">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                    </a>
                     <a href="https://github.com/itsmoihemanth" target="_blank" rel="noopener" title="GitHub">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                    <a href="mailto:hvindurthi@gmail.com" title="Email">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                     </a>
                 </div>
             </div>
@@ -443,7 +485,7 @@
         <div class="divider"></div>
 
         <!-- About -->
-        <section>
+        <section class="reveal">
             <div class="section-label">About</div>
             <p class="about-text">
                 I'm an AI engineer and published IEEE researcher. Most recently I architected a multi-agent AI platform from scratch and shipped it to staging in under 4 months, then stuck around to build the backend infrastructure behind it. I also do research in computer vision for autonomous robots — my thesis was on zero-shot object detection, and I've built navigation systems that have been validated in real-world field operation.
@@ -455,7 +497,7 @@
         </section>
 
         <!-- Publications -->
-        <section>
+        <section class="reveal">
             <div class="section-label">Publications</div>
             <a class="pub-card" href="https://ieeexplore.ieee.org/document/11164053" target="_blank" rel="noopener">
                 <div class="pub-venue">IEEE CASE 2025</div>
@@ -472,7 +514,7 @@
         </section>
 
         <!-- Experience -->
-        <section>
+        <section class="reveal">
             <div class="section-label">Experience</div>
 
             <div class="card">
@@ -549,7 +591,7 @@
         </section>
 
         <!-- Projects -->
-        <section>
+        <section class="reveal">
             <div class="section-label">Projects</div>
             <div class="projects-placeholder">
                 Projects coming soon — check back for GitHub repos.<br>
@@ -558,7 +600,7 @@
         </section>
 
         <!-- Education -->
-        <section>
+        <section class="reveal">
             <div class="section-label">Education</div>
             <div class="edu-item">
                 <div>
@@ -577,7 +619,7 @@
         </section>
 
         <!-- Skills -->
-        <section>
+        <section class="reveal">
             <div class="section-label">Skills</div>
             <div class="skills-grid">
                 <div class="skill-group">
@@ -600,14 +642,49 @@
         </section>
 
         <!-- Contact -->
-        <section>
+        <section class="reveal">
             <div class="section-label">Contact</div>
             <div class="contact-row">
                 <a class="contact-btn primary" href="mailto:hvindurthi@gmail.com">Email me</a>
                 <a class="contact-btn" href="https://www.linkedin.com/in/hemanth-venkata-indurthi-99052219b/" target="_blank" rel="noopener">LinkedIn</a>
-                <a class="contact-btn" href="tel:+12202434434">📞 (220) 243-4434</a>
+                <a class="contact-btn" href="tel:+12202434434">&#128222; (220) 243-4434</a>
             </div>
         </section>
 
         <footer>
-            <p>© 2026 Hemanth Venkata Indurthi
+            <p>&copy; 2026 Hemanth Venkata Indurthi &middot; Built with intent</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Scroll-triggered reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Subtle orb parallax on scroll
+        const orb1 = document.querySelector('.orb-1');
+        const orb2 = document.querySelector('.orb-2');
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const y = window.scrollY;
+                    orb1.style.transform = 'translateY(' + (y * 0.15) + 'px)';
+                    orb2.style.transform = 'translateY(' + (y * -0.1) + 'px)';
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+    </script>
+</body>
+</html>
