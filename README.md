@@ -1,1 +1,0 @@
-# itsmoihemanth.github.io
