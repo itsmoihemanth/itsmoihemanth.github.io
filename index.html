@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hemanth Venkata Indurthi | AI & Robotics Engineer</title>
+    <meta name="description" content="AI Engineer, Robotics Researcher, IEEE Published Author. Building production AI systems and autonomous robots.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0b;
+            --surface: #131316;
+            --surface-hover: #1a1a1f;
+            --border: #222228;
+            --text: #e8e8ed;
+            --text-secondary: #8b8b96;
+            --accent: #4f8ff7;
+            --accent-dim: rgba(79, 143, 247, 0.12);
+            --accent-glow: rgba(79, 143, 247, 0.25);
+            --green: #34d399;
+            --green-dim: rgba(52, 211, 153, 0.12);
+            --orange: #f59e0b;
+            --radius: 10px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .noise {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            padding: 60px 0 40px;
+            position: relative;
+        }
+
+        .header-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 32px;
+        }
+
+        .header-left h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 6px;
+        }
+
+        .header-left .tagline {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: var(--green-dim);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            border-radius: 20px;
+            font-size: 0.82rem;
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        .status-badge::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .header-links {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+            padding-top: 6px;
+        }
+
+        .header-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .header-links a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-dim);
+        }
+
+        .header-links svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 40px;
+        }
+
+        .section-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        /* About */
+        .about-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+
+        .about-text strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 22px;
+            margin-bottom: 12px;
+            transition: border-color 0.2s;
+        }
+
+        .card:hover {
+            border-color: rgba(79, 143, 247, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 6px;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .card-meta {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .card-subtitle {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .card-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            padding: 3px 10px;
+            background: var(--accent-dim);
+            color: var(--accent);
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        /* Publication card */
+        .pub-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 22px;
+            margin-bottom: 12px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.2s;
+        }
+
+        .pub-card:hover {
+            border-color: var(--accent);
+            background: var(--surface-hover);
+        }
+
+        .pub-venue {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: var(--orange);
+            margin-bottom: 6px;
+        }
+
+        .pub-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+
+        .pub-authors {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .pub-link-hint {
+            font-size: 0.78rem;
+            color: var(--accent);
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Skills grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .skill-group h3 {
+            font-size: 0.82rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .skill-group p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Projects placeholder */
+        .projects-placeholder {
+            background: var(--surface);
+            border: 1px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+        }
+
+        .projects-placeholder span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--accent);
+        }
+
+        /* Education */
+        .edu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .edu-item:last-child { border-bottom: none; }
+
+        .edu-degree {
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .edu-school {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .edu-year {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        /* Contact */
+        .contact-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .contact-btn:hover {
+            border-color: var(--accent);
+            background: var(--accent-dim);
+        }
+
+        .contact-btn.primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .contact-btn.primary:hover {
+            background: #3d7de0;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 8px 0 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            header { padding: 40px 0 32px; }
+            .header-grid { flex-direction: column; gap: 16px; }
+            .header-left h1 { font-size: 1.6rem; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .card-header { flex-direction: column; gap: 2px; }
+            .contact-row { flex-direction: column; }
+            .contact-btn { justify-content: center; }
+        }
+
+        /* Animate in */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section, header {
+            animation: fadeUp 0.5s ease-out both;
+        }
+
+        section:nth-child(2) { animation-delay: 0.05s; }
+        section:nth-child(3) { animation-delay: 0.1s; }
+        section:nth-child(4) { animation-delay: 0.15s; }
+        section:nth-child(5) { animation-delay: 0.2s; }
+        section:nth-child(6) { animation-delay: 0.25s; }
+    </style>
+</head>
+<body>
+    <div class="noise"></div>
+    <div class="container">
+
+        <header>
+            <div class="header-grid">
+                <div class="header-left">
+                    <h1>Hemanth Venkata Indurthi</h1>
+                    <p class="tagline">AI Engineer · Robotics Researcher · IEEE Published Author</p>
+                    <div class="status-badge">Open to opportunities · Available immediately</div>
+                </div>
+                <div class="header-links">
+                    <a href="https://www.linkedin.com/in/hemanth-venkata-indurthi-99052219b/" target="_blank" rel="noopener" title="LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="/cdn-cgi/l/email-protection#214957484f45545355494861464c40484d0f424e4c" title="Email">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    </a>
+                    <!-- <a href="https://github.com/" target="_blank" rel="noopener" title="GitHub">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a> -->
+                </div>
+            </div>
+        </header>
+
+        <div class="divider"></div>
+
+        <!-- About -->
+        <section>
+            <div class="section-label">About</div>
+            <p class="about-text">
+                I'm an AI engineer and published IEEE researcher. Most recently I architected a multi-agent AI platform from scratch and shipped it to staging in under 4 months, then stuck around to build the backend infrastructure behind it. I also do research in computer vision for autonomous robots — my thesis was on zero-shot object detection, and I've built navigation systems that have been validated in real-world field operation.
+            </p>
+            <br>
+            <p class="about-text">
+                Honestly, all of this traces back to a scrappy RC car I rigged up with a Raspberry Pi for a college science fair. Camera duct-taped to the hood, commands streaming to a laptop, and against all odds the thing actually drove itself. That feeling of making something work that probably shouldn't have — that's still what drives me. The problems just got bigger. Now it's LLM orchestration, real-time perception pipelines, and distributed services. I'm currently looking for a full-time role where I can keep working on hard, interesting problems.
+            </p>
+        </section>
+
+        <!-- Publications -->
+        <section>
+            <div class="section-label">Publications</div>
+            <a class="pub-card" href="https://ieeexplore.ieee.org/document/11164053" target="_blank" rel="noopener">
+                <div class="pub-venue">IEEE CASE 2025</div>
+                <div class="pub-title">Augmenting Open Vocabulary Object Detection with Large Language Models for Home Service Robots</div>
+                <div class="pub-authors">Eric Martinson, <strong>Hemanth Venkata Indurthi</strong>, CJ Chung</div>
+                <div class="pub-link-hint">Read on IEEE Xplore →</div>
+            </a>
+            <a class="pub-card" href="https://ltu.edu/wp-content/uploads/2025/08/mscs-research.pdf" target="_blank" rel="noopener">
+                <div class="pub-venue">Master's Thesis · May 2025</div>
+                <div class="pub-title">HybridNav: Multi-Model Zero-Shot Object Detection with Adaptive Exploration</div>
+                <div class="pub-authors">25% accuracy gain via adaptive multi-model fusion (CLIPSeg, OMDet, SAMv2); deployed on ROS2 mobile robot</div>
+                <div class="pub-link-hint">Read thesis →</div>
+            </a>
+        </section>
+
+        <!-- Experience -->
+        <section>
+            <div class="section-label">Experience</div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">AI Engineer</div>
+                    <div class="card-meta">Sep 2025 – Present</div>
+                </div>
+                <div class="card-subtitle">5RCommerce Solutions LLC · Remote, U.S.</div>
+                <div class="card-desc">
+                    Architecting fulfillment backend (Node.js/TypeScript, PostgreSQL, Redis) with 3PL logistics and payment processing integration. Previously built multi-agent AI platform from scratch using LangGraph with MCP-federated tool discovery, multiple routing strategies, dual-layer RAG, and deployed async FastAPI microservices on AWS.
+                </div>
+                <div class="card-tags">
+                    <span class="tag">LangGraph</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">TypeScript</span>
+                    <span class="tag">FastAPI</span>
+                    <span class="tag">PostgreSQL</span>
+                    <span class="tag">AWS</span>
+                    <span class="tag">MCP</span>
+                    <span class="tag">DSPy</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Graduate Research Assistant</div>
+                    <div class="card-meta">Sep 2024 – Feb 2025</div>
+                </div>
+                <div class="card-subtitle">Lawrence Technological University · Southfield, MI</div>
+                <div class="card-desc">
+                    Developed CNN perception pipelines (PyTorch) for Unitree Go2 quadruped robot, improving detection accuracy 15–25%. Led concrete crack detection research and designed STEM robotics outreach demos.
+                </div>
+                <div class="card-tags">
+                    <span class="tag">PyTorch</span>
+                    <span class="tag">ROS2</span>
+                    <span class="tag">OpenCV</span>
+                    <span class="tag">Computer Vision</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Robotics Engineer</div>
+                    <div class="card-meta">Mar 2024 – Jun 2024</div>
+                </div>
+                <div class="card-subtitle">Centrepolis Accelerator @ LTU · Southfield, MI</div>
+                <div class="card-desc">
+                    Built ROS2-based autonomous outdoor navigation system with RGB-D vision and potential-field path planning. Validated through 40+ hours field operation. Collaborated on 30% sensor-fusion latency optimization.
+                </div>
+                <div class="card-tags">
+                    <span class="tag">ROS2</span>
+                    <span class="tag">SLAM</span>
+                    <span class="tag">Path Planning</span>
+                    <span class="tag">Sensor Fusion</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Junior Software Engineer</div>
+                    <div class="card-meta">Dec 2021 – Mar 2023</div>
+                </div>
+                <div class="card-subtitle">ITP Software India Pvt Ltd · Hyderabad, India</div>
+                <div class="card-desc">
+                    Built full-stack web applications (PHP/CodeIgniter 3, JavaScript, SQL). Optimized SQL queries by 30% and reduced API response times by 20%.
+                </div>
+                <div class="card-tags">
+                    <span class="tag">PHP</span>
+                    <span class="tag">CodeIgniter</span>
+                    <span class="tag">SQL</span>
+                    <span class="tag">JavaScript</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section>
+            <div class="section-label">Projects</div>
+            <div class="projects-placeholder">
+                Projects coming soon — check back for GitHub repos.<br>
+                <span>git commit -m "adding projects..."</span>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section>
+            <div class="section-label">Education</div>
+            <div class="edu-item">
+                <div>
+                    <div class="edu-degree">M.S. Computer Science (Intelligent Systems)</div>
+                    <div class="edu-school">Lawrence Technological University, MI</div>
+                </div>
+                <div class="edu-year">May 2025</div>
+            </div>
+            <div class="edu-item">
+                <div>
+                    <div class="edu-degree">B.Sc. Mathematics, Electronics, Computer Science</div>
+                    <div class="edu-school">Osmania University, India</div>
+                </div>
+                <div class="edu-year">Jul 2022</div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section>
+            <div class="section-label">Skills</div>
+            <div class="skills-grid">
+                <div class="skill-group">
+                    <h3>AI / ML</h3>
+                    <p>LangGraph, DSPy, MCP, RAG, PyTorch, OpenCV, Agent Orchestration, Tool Calling, Prompt Engineering</p>
+                </div>
+                <div class="skill-group">
+                    <h3>Backend</h3>
+                    <p>Python, TypeScript, FastAPI, Node.js/Express, PostgreSQL, Redis, Docker, AWS, REST APIs</p>
+                </div>
+                <div class="skill-group">
+                    <h3>Robotics</h3>
+                    <p>ROS2, Autonomous Navigation, SLAM, Sensor Fusion, Path Planning, Object Detection</p>
+                </div>
+                <div class="skill-group">
+                    <h3>Practices</h3>
+                    <p>System Design, Microservices, Multi-Tenant Architecture, CI/CD, Agile, Code Reviews</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section>
+            <div class="section-label">Contact</div>
+            <div class="contact-row">
+                <a class="contact-btn primary" href="/cdn-cgi/l/email-protection#640c120d0a001116100c0d240309050d084a070b09">Email me</a>
+                <a class="contact-btn" href="https://www.linkedin.com/in/hemanth-venkata-indurthi-99052219b/" target="_blank" rel="noopener">LinkedIn</a>
+                <a class="contact-btn" href="tel:+12202434434">📞 (220) 243-4434</a>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 Hemanth Venkata Indurthi
