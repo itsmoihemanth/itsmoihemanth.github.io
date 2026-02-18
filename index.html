@@ -1,689 +1,644 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hemanth Venkata Indurthi | AI & Robotics Engineer</title>
     <meta name="description" content="AI Engineer, Robotics Researcher, IEEE Published Author. Building production AI systems and autonomous robots.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Hemanth Venkata Indurthi | AI & Robotics Engineer">
+    <meta property="og:description" content="AI Engineer, Robotics Researcher, IEEE Published Author. Building production AI systems and autonomous robots.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Hemanth Venkata Indurthi | AI & Robotics Engineer">
+    <meta name="twitter:description" content="AI Engineer, Robotics Researcher, IEEE Published Author. Building production AI systems and autonomous robots.">
+    <script>/* suppress tailwind cdn warning */ const _w=console.warn; console.warn=(...a)=>{if(a[0]&&typeof a[0]==='string'&&a[0].includes('cdn.tailwindcss.com'))return;_w.apply(console,a)};</script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600&family=Manrope:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        base: '#0e0e0e',
+                        surface: '#161616',
+                        surface2: '#1e1e1e',
+                        surface3: '#272727',
+                        cream: '#f0ebe3',
+                        warm: '#c4b5a3',
+                        muted: '#7a7368',
+                        copper: '#c8906a',
+                        copperLight: '#daa882',
+                        copperDim: 'rgba(200,144,106,0.1)',
+                        sage: '#8fa68c',
+                        sageDim: 'rgba(143,166,140,0.1)',
+                        slate: '#7a8a9e',
+                        slateDim: 'rgba(122,138,158,0.1)',
+                        rose: '#c48a8a',
+                        roseDim: 'rgba(196,138,138,0.1)',
+                    },
+                    fontFamily: {
+                        display: ['Fraunces', 'Georgia', 'serif'],
+                        body: ['Manrope', 'sans-serif'],
+                        mono: ['IBM Plex Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --bg: #0a0a0b;
-            --surface: #131316;
-            --surface-hover: #1a1a1f;
-            --border: #222228;
-            --text: #e8e8ed;
-            --text-secondary: #8b8b96;
-            --accent: #4f8ff7;
-            --accent-dim: rgba(79, 143, 247, 0.12);
-            --accent-glow: rgba(79, 143, 247, 0.25);
-            --green: #34d399;
-            --green-dim: rgba(52, 211, 153, 0.12);
-            --orange: #f59e0b;
-            --radius: 10px;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'DM Sans', -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .noise {
+        body { background: #0e0e0e; }
+        body::after {
+            content: '';
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.018'/%3E%3C/svg%3E");
             pointer-events: none;
             z-index: 9999;
         }
-
-        /* Floating gradient orbs */
-        .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
+        .geo-line {
+            position: absolute;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(200,144,106,0.15) 30%, rgba(200,144,106,0.15) 70%, transparent);
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-in.show { opacity: 1; transform: translateY(0); }
+        .stagger > .fade-in:nth-child(1) { transition-delay: 0s; }
+        .stagger > .fade-in:nth-child(2) { transition-delay: 0.07s; }
+        .stagger > .fade-in:nth-child(3) { transition-delay: 0.14s; }
+        .stagger > .fade-in:nth-child(4) { transition-delay: 0.21s; }
+        .stagger > .fade-in:nth-child(5) { transition-delay: 0.28s; }
+        .stagger > .fade-in:nth-child(6) { transition-delay: 0.35s; }
+        .stagger > .fade-in:nth-child(7) { transition-delay: 0.42s; }
+        .project-card { transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+        .project-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+        .project-card .accent-bar { transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .project-card:hover .accent-bar { transform: scaleX(1); }
+        nav a.active { color: #c8906a !important; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0e0e0e; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        .link-hover {
+            background-image: linear-gradient(#c8906a, #c8906a);
+            background-size: 0% 1px;
+            background-position: left bottom;
+            background-repeat: no-repeat;
+            transition: background-size 0.3s ease;
+        }
+        .link-hover:hover { background-size: 100% 1px; }
+        .bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
+        .bento-wide { grid-column: span 7; }
+        .bento-narrow { grid-column: span 5; }
+        .bento-half { grid-column: span 6; }
+        .bento-third { grid-column: span 4; }
+        .bento-full { grid-column: span 12; }
+        @media (max-width: 768px) {
+            .bento-wide, .bento-narrow, .bento-half, .bento-third { grid-column: span 12; }
+        }
+        .num-accent {
+            font-family: 'Fraunces', serif;
+            font-size: 5rem;
+            line-height: 1;
+            color: rgba(200,144,106,0.06);
+            position: absolute;
+            top: -8px;
+            right: 16px;
             pointer-events: none;
-            z-index: -1;
-            opacity: 0.4;
-            will-change: transform;
-        }
-
-        .orb-1 {
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(79, 143, 247, 0.15), transparent 70%);
-            top: -50px;
-            left: -100px;
-        }
-
-        .orb-2 {
-            width: 250px;
-            height: 250px;
-            background: radial-gradient(circle, rgba(52, 211, 153, 0.1), transparent 70%);
-            bottom: 20%;
-            right: -80px;
-        }
-
-        .container {
-            max-width: 780px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Header */
-        header {
-            padding: 60px 0 40px;
-            position: relative;
-            animation: fadeUp 0.5s ease-out both;
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .header-grid {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 32px;
-        }
-
-        .header-left h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.15;
-            margin-bottom: 6px;
-        }
-
-        .header-left .tagline {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-            margin-bottom: 16px;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 14px;
-            background: var(--green-dim);
-            border: 1px solid rgba(52, 211, 153, 0.2);
-            border-radius: 20px;
-            font-size: 0.82rem;
-            color: var(--green);
-            font-weight: 500;
-        }
-
-        .status-badge::before {
-            content: '';
-            width: 7px;
-            height: 7px;
-            background: var(--green);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        .header-links {
-            display: flex;
-            gap: 10px;
-            flex-shrink: 0;
-            padding-top: 6px;
-        }
-
-        .header-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .header-links a:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            background: var(--accent-dim);
-            transform: translateY(-2px);
-        }
-
-        .header-links svg { width: 18px; height: 18px; }
-
-        /* Sections */
-        section { margin-bottom: 40px; }
-
-        .section-label {
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 16px;
-        }
-
-        /* Scroll reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* About */
-        .about-text {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            line-height: 1.75;
-        }
-
-        .about-text strong {
-            color: var(--text);
-            font-weight: 500;
-        }
-
-        /* Cards */
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px 22px;
-            margin-bottom: 12px;
-            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            opacity: 0;
-            transform: translateY(12px);
-        }
-
-        .reveal.visible .card {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reveal.visible .card:nth-child(2) { transition-delay: 0.08s; }
-        .reveal.visible .card:nth-child(3) { transition-delay: 0.16s; }
-        .reveal.visible .card:nth-child(4) { transition-delay: 0.24s; }
-        .reveal.visible .card:nth-child(5) { transition-delay: 0.32s; }
-
-        .card:hover {
-            border-color: rgba(79, 143, 247, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 6px;
-        }
-
-        .card-title { font-size: 1rem; font-weight: 600; }
-
-        .card-meta {
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-            white-space: nowrap;
-        }
-
-        .card-subtitle {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            margin-bottom: 10px;
-        }
-
-        .card-desc {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            line-height: 1.65;
-        }
-
-        .card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 12px;
-        }
-
-        .tag {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
-            padding: 3px 10px;
-            background: var(--accent-dim);
-            color: var(--accent);
-            border-radius: 5px;
-            font-weight: 500;
-        }
-
-        /* Publication card */
-        .pub-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px 22px;
-            margin-bottom: 12px;
-            text-decoration: none;
-            display: block;
-            transition: all 0.3s;
-            opacity: 0;
-            transform: translateY(12px);
-        }
-
-        .reveal.visible .pub-card {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reveal.visible .pub-card:nth-child(3) { transition-delay: 0.08s; }
-
-        .pub-card:hover {
-            border-color: var(--accent);
-            background: var(--surface-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-        }
-
-        .pub-venue {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
-            font-weight: 500;
-            color: var(--orange);
-            margin-bottom: 6px;
-        }
-
-        .pub-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 4px;
-            line-height: 1.4;
-        }
-
-        .pub-authors {
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-        }
-
-        .pub-link-hint {
-            font-size: 0.78rem;
-            color: var(--accent);
-            margin-top: 8px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            transition: gap 0.2s;
-        }
-
-        .pub-card:hover .pub-link-hint { gap: 8px; }
-
-        /* Skills grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .skill-group h3 {
-            font-size: 0.82rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-
-        .skill-group p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* Projects placeholder */
-        .projects-placeholder {
-            background: var(--surface);
-            border: 1px dashed var(--border);
-            border-radius: var(--radius);
-            padding: 32px;
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.88rem;
-        }
-
-        .projects-placeholder span {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-            color: var(--accent);
-        }
-
-        /* Education */
-        .edu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .edu-item:last-child { border-bottom: none; }
-
-        .edu-degree { font-size: 0.92rem; font-weight: 600; }
-        .edu-school { font-size: 0.85rem; color: var(--text-secondary); }
-        .edu-year { font-size: 0.82rem; color: var(--text-secondary); white-space: nowrap; }
-
-        /* Contact */
-        .contact-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .contact-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            color: var(--text);
-            text-decoration: none;
-            font-size: 0.88rem;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .contact-btn:hover {
-            border-color: var(--accent);
-            background: var(--accent-dim);
-            transform: translateY(-2px);
-        }
-
-        .contact-btn.primary {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: #fff;
-        }
-
-        .contact-btn.primary:hover {
-            background: #3d7de0;
-            transform: translateY(-2px);
-        }
-
-        /* Footer */
-        footer {
-            padding: 40px 0;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-        }
-
-        /* Divider */
-        .divider {
-            height: 1px;
-            background: var(--border);
-            margin: 8px 0 40px;
-        }
-
-        /* Responsive */
-        @media (max-width: 640px) {
-            header { padding: 40px 0 32px; }
-            .header-grid { flex-direction: column; gap: 16px; }
-            .header-left h1 { font-size: 1.6rem; }
-            .skills-grid { grid-template-columns: 1fr; }
-            .card-header { flex-direction: column; gap: 2px; }
-            .contact-row { flex-direction: column; }
-            .contact-btn { justify-content: center; }
+            font-weight: 800;
         }
     </style>
 </head>
-<body>
-    <div class="noise"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="container">
+<body class="font-body text-warm antialiased">
+    <a href="#top" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[200] focus:bg-surface focus:text-copper focus:px-4 focus:py-2 focus:rounded font-mono text-xs">Skip to main content</a>
+    <nav aria-label="Main" class="fixed top-0 left-0 right-0 z-50 bg-base/90 backdrop-blur-md border-b border-white/[0.04]">
+        <div class="max-w-6xl mx-auto px-6 md:px-10 h-14 flex items-center justify-between">
+            <a href="#top" class="font-mono text-cream text-sm tracking-tight">Code<span class="text-copper">Cur8or</span></a>
+            <div id="nav-menu" class="hidden md:flex items-center gap-8">
+                <a href="#about" class="font-mono text-[11px] tracking-[0.14em] uppercase text-muted hover:text-copper transition-colors">About</a>
+                <a href="#work" class="font-mono text-[11px] tracking-[0.14em] uppercase text-muted hover:text-copper transition-colors">Work</a>
+                <a href="#projects" class="font-mono text-[11px] tracking-[0.14em] uppercase text-muted hover:text-copper transition-colors">Projects</a>
+                <a href="#research" class="font-mono text-[11px] tracking-[0.14em] uppercase text-muted hover:text-copper transition-colors">Research</a>
+                <a href="#contact" class="font-mono text-[11px] tracking-[0.14em] uppercase text-muted hover:text-copper transition-colors">Contact</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="https://www.linkedin.com/in/hemanth-venkata-indurthi-99052219b/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" class="text-muted hover:text-copper transition-colors">
+                    <svg aria-hidden="true" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a href="https://github.com/itsmoihemanth" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" class="text-muted hover:text-copper transition-colors">
+                    <svg aria-hidden="true" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+                <a href="mailto:hvindurthi@gmail.com" class="text-muted hover:text-copper transition-colors text-[11px] font-mono" title="Email" onclick="copyEmail(event)">hvindurthi@gmail.com</a>
+                <button id="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu" class="md:hidden text-muted hover:text-copper transition-colors">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path id="menu-icon-open" stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/><path id="menu-icon-close" class="hidden" stroke-linecap="round" d="M6 6l12 12M6 18L18 6"/></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden border-t border-white/[0.04] bg-base/95 backdrop-blur-md">
+            <div class="flex flex-col px-6 py-4 gap-3">
+                <a href="#about" class="font-mono text-[11px] tracking-[0.14em] uppercase text-muted hover:text-copper transition-colors" onclick="closeMobileMenu()">About</a>
+                <a href="#work" class="font-mono text-[11px] tracking-[0.14em] uppercase text-muted hover:text-copper transition-colors" onclick="closeMobileMenu()">Work</a>
+                <a href="#projects" class="font-mono text-[11px] tracking-[0.14em] uppercase text-muted hover:text-copper transition-colors" onclick="closeMobileMenu()">Projects</a>
+                <a href="#research" class="font-mono text-[11px] tracking-[0.14em] uppercase text-muted hover:text-copper transition-colors" onclick="closeMobileMenu()">Research</a>
+                <a href="#contact" class="font-mono text-[11px] tracking-[0.14em] uppercase text-muted hover:text-copper transition-colors" onclick="closeMobileMenu()">Contact</a>
+            </div>
+        </div>
+    </nav>
 
-        <header>
-            <div class="header-grid">
-                <div class="header-left">
-                    <h1>Hemanth Venkata Indurthi</h1>
-                    <p class="tagline">AI Engineer · Robotics Researcher · IEEE Published Author</p>
-                    <div class="status-badge">Open to opportunities · Available immediately</div>
+    <main class="max-w-6xl mx-auto px-6 md:px-10">
+
+        <!-- HERO -->
+        <section id="top" class="pt-28 md:pt-36 pb-20 md:pb-28 relative">
+            <div class="geo-line h-[200px] left-[15%] top-20 hidden lg:block"></div>
+            <div class="max-w-3xl">
+                <div class="fade-in mb-6">
+                    <span class="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.14em] uppercase text-sage border border-sage/20 rounded-full px-4 py-1.5">
+                        <span class="w-1.5 h-1.5 bg-sage rounded-full animate-pulse"></span>
+                        Looking for my next thing
+                    </span>
                 </div>
-                <div class="header-links">
-                    <a href="https://www.linkedin.com/in/hemanth-venkata-indurthi-99052219b/" target="_blank" rel="noopener" title="LinkedIn">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                <h1 class="fade-in font-display text-cream text-5xl md:text-7xl lg:text-8xl font-700 tracking-tight leading-[0.95] mb-5">
+                    Hemanth<br><span class="italic text-copper font-600">Indurthi</span>
+                </h1>
+                <p class="fade-in text-lg md:text-xl text-warm/70 font-light max-w-xl leading-relaxed mb-8">
+                    I build AI systems that actually ship and robots that actually move. Sometimes I write papers about it. Currently somewhere between a <span class="text-cream font-medium">LangGraph agent</span> and a <span class="text-cream font-medium">ROS2 nav stack</span>.
+                </p>
+                <div class="fade-in flex flex-wrap gap-3">
+                    <a href="https://ieeexplore.ieee.org/document/11164053" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-copper text-base font-mono text-xs tracking-wide uppercase px-5 py-3 rounded-lg hover:bg-copperLight transition-all hover:-translate-y-0.5">
+                        ↗ IEEE Paper
                     </a>
-                    <a href="https://github.com/itsmoihemanth" target="_blank" rel="noopener" title="GitHub">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <a href="https://github.com/itsmoihemanth" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 border border-white/[0.08] text-warm font-mono text-xs tracking-wide uppercase px-5 py-3 rounded-lg hover:border-copper/40 hover:text-copper transition-all">
+                        ↗ GitHub
                     </a>
-                    <a href="mailto:hvindurthi@gmail.com" title="Email">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    <a href="#projects" class="inline-flex items-center gap-2 border border-white/[0.08] text-warm font-mono text-xs tracking-wide uppercase px-5 py-3 rounded-lg hover:border-copper/40 hover:text-copper transition-all">
+                        Projects
+                    </a>
+                    <a href="#contact" class="inline-flex items-center gap-2 border border-white/[0.08] text-warm font-mono text-xs tracking-wide uppercase px-5 py-3 rounded-lg hover:border-copper/40 hover:text-copper transition-all">
+                        Say Hello
                     </a>
                 </div>
             </div>
-        </header>
-
-        <div class="divider"></div>
-
-        <!-- About -->
-        <section class="reveal">
-            <div class="section-label">About</div>
-            <p class="about-text">
-                I'm an AI engineer and published IEEE researcher. Most recently I architected a multi-agent AI platform from scratch and shipped it to staging in under 4 months, then stuck around to build the backend infrastructure behind it. I also do research in computer vision for autonomous robots — my thesis was on zero-shot object detection, and I've built navigation systems that have been validated in real-world field operation.
-            </p>
-            <br>
-            <p class="about-text">
-                Honestly, all of this traces back to a scrappy RC car I rigged up with a Raspberry Pi for a college science fair. Camera duct-taped to the hood, commands streaming to a laptop, and against all odds the thing actually drove itself. That feeling of making something work that probably shouldn't have — that's still what drives me. The problems just got bigger. Now it's LLM orchestration, real-time perception pipelines, and distributed services. I'm currently looking for a full-time role where I can keep working on hard, interesting problems.
-            </p>
+            <!-- Floating credential pills -->
+            <div class="hidden lg:flex flex-col gap-2 absolute right-0 top-44 text-right">
+                <span class="font-mono text-[10px] tracking-widest uppercase text-muted">M.S. Intelligent Systems · LTU</span>
+                <span class="font-mono text-[10px] tracking-widest uppercase text-muted">IEEE CASE 2025 · 2nd Author</span>
+                <span class="font-mono text-[10px] tracking-widest uppercase text-muted">F-1 OPT · STEM Eligible</span>
+                <span class="font-mono text-[10px] tracking-widest uppercase text-muted">ICRA 2025 Volunteer</span>
+            </div>
         </section>
 
-        <!-- Publications -->
-        <section class="reveal">
-            <div class="section-label">Publications</div>
-            <a class="pub-card" href="https://ieeexplore.ieee.org/document/11164053" target="_blank" rel="noopener">
-                <div class="pub-venue">IEEE CASE 2025</div>
-                <div class="pub-title">Augmenting Open Vocabulary Object Detection with Large Language Models for Home Service Robots</div>
-                <div class="pub-authors">Eric Martinson, <strong>Hemanth Venkata Indurthi</strong>, CJ Chung</div>
-                <div class="pub-link-hint">Read on IEEE Xplore →</div>
-            </a>
-            <a class="pub-card" href="https://ltu.edu/wp-content/uploads/2025/08/mscs-research.pdf" target="_blank" rel="noopener">
-                <div class="pub-venue">Master's Thesis · May 2025</div>
-                <div class="pub-title">HybridNav: Multi-Model Zero-Shot Object Detection with Adaptive Exploration</div>
-                <div class="pub-authors">25% accuracy gain via adaptive multi-model fusion (CLIPSeg, OMDet, SAMv2); deployed on ROS2 mobile robot</div>
-                <div class="pub-link-hint">Read thesis →</div>
-            </a>
-        </section>
+        <div class="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent"></div>
 
-        <!-- Experience -->
-        <section class="reveal">
-            <div class="section-label">Experience</div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">AI Engineer</div>
-                    <div class="card-meta">Sep 2025 – Present</div>
+        <!-- ABOUT -->
+        <section id="about" class="py-20 md:py-28">
+            <div class="grid md:grid-cols-12 gap-8 md:gap-16">
+                <div class="md:col-span-4 fade-in">
+                    <span class="font-mono text-[10px] tracking-[0.18em] uppercase text-copper block mb-3">About</span>
+                    <h2 class="font-display text-cream text-3xl md:text-4xl tracking-tight leading-[1.1]">Research meets<br><span class="italic text-copper">production.</span></h2>
                 </div>
-                <div class="card-subtitle">5RCommerce Solutions LLC · Remote, U.S.</div>
-                <div class="card-desc">
-                    Architecting fulfillment backend (Node.js/TypeScript, PostgreSQL, Redis) with 3PL logistics and payment processing integration. Previously built multi-agent AI platform from scratch using LangGraph with MCP-federated tool discovery, multiple routing strategies, dual-layer RAG, and deployed async FastAPI microservices on AWS.
-                </div>
-                <div class="card-tags">
-                    <span class="tag">LangGraph</span>
-                    <span class="tag">Python</span>
-                    <span class="tag">TypeScript</span>
-                    <span class="tag">FastAPI</span>
-                    <span class="tag">PostgreSQL</span>
-                    <span class="tag">AWS</span>
-                    <span class="tag">MCP</span>
-                    <span class="tag">DSPy</span>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Graduate Research Assistant</div>
-                    <div class="card-meta">Sep 2024 – Feb 2025</div>
-                </div>
-                <div class="card-subtitle">Lawrence Technological University · Southfield, MI</div>
-                <div class="card-desc">
-                    Developed CNN perception pipelines (PyTorch) for Unitree Go2 quadruped robot, improving detection accuracy 15–25%. Led concrete crack detection research and designed STEM robotics outreach demos.
-                </div>
-                <div class="card-tags">
-                    <span class="tag">PyTorch</span>
-                    <span class="tag">ROS2</span>
-                    <span class="tag">OpenCV</span>
-                    <span class="tag">Computer Vision</span>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Robotics Engineer</div>
-                    <div class="card-meta">Mar 2024 – Jun 2024</div>
-                </div>
-                <div class="card-subtitle">Centrepolis Accelerator @ LTU · Southfield, MI</div>
-                <div class="card-desc">
-                    Built ROS2-based autonomous outdoor navigation system with RGB-D vision and potential-field path planning. Validated through 40+ hours field operation. Collaborated on 30% sensor-fusion latency optimization.
-                </div>
-                <div class="card-tags">
-                    <span class="tag">ROS2</span>
-                    <span class="tag">SLAM</span>
-                    <span class="tag">Path Planning</span>
-                    <span class="tag">Sensor Fusion</span>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Junior Software Engineer</div>
-                    <div class="card-meta">Dec 2021 – Mar 2023</div>
-                </div>
-                <div class="card-subtitle">ITP Software India Pvt Ltd · Hyderabad, India</div>
-                <div class="card-desc">
-                    Built full-stack web applications (PHP/CodeIgniter 3, JavaScript, SQL). Optimized SQL queries by 30% and reduced API response times by 20%.
-                </div>
-                <div class="card-tags">
-                    <span class="tag">PHP</span>
-                    <span class="tag">CodeIgniter</span>
-                    <span class="tag">SQL</span>
-                    <span class="tag">JavaScript</span>
+                <div class="md:col-span-8 space-y-5 fade-in">
+                    <p class="text-warm/70 leading-relaxed">
+                        I build things at the intersection of AI research and real systems. I architected a <strong class="text-cream font-medium">multi-agent AI platform from scratch</strong> — LangGraph orchestration, 40+ MCP-federated tools, dual-layer RAG — and shipped it to staging in under four months. Then I stuck around to build the fulfillment backend powering the commerce layer underneath it. Because apparently I enjoy building the engine <em>and</em> the road.
+                    </p>
+                    <p class="text-warm/70 leading-relaxed">
+                        On the research side, I work on <strong class="text-cream font-medium">computer vision for autonomous robots</strong>. My thesis fused CLIPSeg, OMDet, and SAMv2 for zero-shot object detection on mobile robots. I've published in IEEE, built navigation stacks validated in 40+ hours of field operation, and trained perception pipelines for quadruped robots. The quadruped didn't fall over, which I consider a personal achievement.
+                    </p>
+                    <p class="text-warm/70 leading-relaxed">
+                        It all started with a Raspberry Pi duct-taped to an RC car for a college science fair. Camera on the hood, commands streaming to a laptop. Not elegant. But it drove itself — and that feeling of making something work that probably shouldn't have is still the thing that gets me out of bed.
+                    </p>
                 </div>
             </div>
         </section>
 
-        <!-- Projects -->
-        <section class="reveal">
-            <div class="section-label">Projects</div>
-            <div class="projects-placeholder">
-                Projects coming soon — check back for GitHub repos.<br>
-                <span>git commit -m "adding projects..."</span>
+        <div class="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent"></div>
+
+        <!-- WORK -->
+        <section id="work" class="py-20 md:py-28">
+            <div class="mb-14 fade-in">
+                <span class="font-mono text-[10px] tracking-[0.18em] uppercase text-copper block mb-3">Experience</span>
+                <h2 class="font-display text-cream text-3xl md:text-4xl tracking-tight">Places that let me <span class="italic text-copper">break things.</span></h2>
+            </div>
+
+            <div class="space-y-0">
+                <!-- Sydon -->
+                <div class="fade-in group grid md:grid-cols-12 gap-4 md:gap-8 py-7 border-b border-white/[0.04] hover:border-copper/10 transition-colors">
+                    <div class="md:col-span-3"><span class="font-mono text-xs text-muted">Sep 2025 — Present</span></div>
+                    <div class="md:col-span-9">
+                        <h3 class="text-cream font-semibold text-[15px] mb-1 group-hover:text-copper transition-colors">AI Engineer</h3>
+                        <p class="text-copper/80 text-sm mb-3">5RCommerce Solutions LLC · Remote, U.S.</p>
+                        <p class="text-warm/60 text-[13px] leading-relaxed mb-3">Currently architecting fulfillment backend from scratch (Node.js/TypeScript/Express, PostgreSQL, Redis) with ShipStation 3PL and Stripe payments — sub-200ms APIs across multi-tenant architecture. Previously built the multi-agent AI platform using LangGraph: 5 routing strategies, 40+ MCP-federated tools, dual-layer RAG, human-in-the-loop controls. Concept to staging in under 4 months, coordinating a 4-engineer team.</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-copperDim text-copper/80">LangGraph</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-copperDim text-copper/80">Python</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-copperDim text-copper/80">TypeScript</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-copperDim text-copper/80">FastAPI</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-copperDim text-copper/80">PostgreSQL</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-copperDim text-copper/80">AWS</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-copperDim text-copper/80">MCP</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-copperDim text-copper/80">DSPy</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-copperDim text-copper/80">Redis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GRA -->
+                <div class="fade-in group grid md:grid-cols-12 gap-4 md:gap-8 py-7 border-b border-white/[0.04] hover:border-copper/10 transition-colors">
+                    <div class="md:col-span-3"><span class="font-mono text-xs text-muted">Sep 2024 — Feb 2025</span></div>
+                    <div class="md:col-span-9">
+                        <h3 class="text-cream font-semibold text-[15px] mb-1 group-hover:text-copper transition-colors">Graduate Research Assistant</h3>
+                        <p class="text-copper/80 text-sm mb-3">Lawrence Technological University · Southfield, MI</p>
+                        <p class="text-warm/60 text-[13px] leading-relaxed mb-3">Developed real-time CNN perception pipelines (PyTorch) for Unitree Go2 quadruped robot — improved detection accuracy 15–25% through model optimization. Led concrete crack detection research. Also designed STEM robotics outreach demos, because somebody has to get high schoolers excited about this stuff.</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sageDim text-sage/80">PyTorch</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sageDim text-sage/80">ROS2</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sageDim text-sage/80">OpenCV</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sageDim text-sage/80">Computer Vision</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Centrepolis -->
+                <div class="fade-in group grid md:grid-cols-12 gap-4 md:gap-8 py-7 border-b border-white/[0.04] hover:border-copper/10 transition-colors">
+                    <div class="md:col-span-3"><span class="font-mono text-xs text-muted">Mar 2024 — Jun 2024</span></div>
+                    <div class="md:col-span-9">
+                        <h3 class="text-cream font-semibold text-[15px] mb-1 group-hover:text-copper transition-colors">Robotics Engineer</h3>
+                        <p class="text-copper/80 text-sm mb-3">Centrepolis Accelerator @ LTU · Southfield, MI</p>
+                        <p class="text-warm/60 text-[13px] leading-relaxed mb-3">Built a ROS2-based autonomous outdoor navigation system with RGB-D vision and potential-field path planning. Validated through 40+ hours of continuous field operation. Collaborated on optimizing sensor-fusion latency by 30%. Yes, it was a snowblower. Yes, it worked.</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sageDim text-sage/80">ROS2</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sageDim text-sage/80">SLAM</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sageDim text-sage/80">Path Planning</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sageDim text-sage/80">Sensor Fusion</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITP -->
+                <div class="fade-in group grid md:grid-cols-12 gap-4 md:gap-8 py-7 border-b border-white/[0.04] hover:border-copper/10 transition-colors">
+                    <div class="md:col-span-3"><span class="font-mono text-xs text-muted">Dec 2021 — Mar 2023</span></div>
+                    <div class="md:col-span-9">
+                        <h3 class="text-cream font-semibold text-[15px] mb-1 group-hover:text-copper transition-colors">Junior Software Engineer</h3>
+                        <p class="text-copper/80 text-sm mb-3">ITP Software India Pvt Ltd · Hyderabad, India</p>
+                        <p class="text-warm/60 text-[13px] leading-relaxed mb-3">Built full-stack web applications with PHP/CodeIgniter 3, JavaScript, and SQL. Optimized SQL queries by 30% and reduced API response times by 20%. Where I learned that "it works on my machine" is not a deployment strategy.</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface3 text-muted">PHP</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface3 text-muted">CodeIgniter</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface3 text-muted">SQL</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface3 text-muted">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Education -->
-        <section class="reveal">
-            <div class="section-label">Education</div>
-            <div class="edu-item">
-                <div>
-                    <div class="edu-degree">M.S. Computer Science (Intelligent Systems)</div>
-                    <div class="edu-school">Lawrence Technological University, MI</div>
-                </div>
-                <div class="edu-year">May 2025</div>
+        <div class="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent"></div>
+
+        <!-- PROJECTS — bento grid, no RC car -->
+        <section id="projects" class="py-20 md:py-28">
+            <div class="mb-14 fade-in">
+                <span class="font-mono text-[10px] tracking-[0.18em] uppercase text-copper block mb-3">Projects</span>
+                <h2 class="font-display text-cream text-3xl md:text-4xl tracking-tight">Things I've built <span class="italic text-copper">(that didn't catch fire).</span></h2>
             </div>
-            <div class="edu-item">
-                <div>
-                    <div class="edu-degree">B.Sc. Mathematics, Electronics, Computer Science</div>
-                    <div class="edu-school">Osmania University, India</div>
+
+            <div class="bento stagger">
+                <!-- HybridNav — wide -->
+                <div class="bento-wide fade-in">
+                    <div class="project-card relative bg-surface border border-white/[0.04] rounded-xl p-6 md:p-8 overflow-hidden h-full">
+                        <div class="accent-bar absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-copper to-sage"></div>
+                        <div class="num-accent">01</div>
+                        <span class="font-mono text-[10px] tracking-[0.12em] uppercase px-2.5 py-1 rounded bg-slateDim text-slate inline-block mb-4">Thesis · Computer Vision</span>
+                        <h3 class="font-display text-cream text-xl md:text-2xl mb-2 leading-tight">HybridNav: Zero-Shot Object Detection with Adaptive Exploration</h3>
+                        <span class="inline-block font-mono text-[11px] text-sage bg-sageDim border border-sage/15 rounded px-2.5 py-1 mb-4">✦ 25% accuracy gain · Deployed on ROS2 robot</span>
+                        <p class="text-warm/60 text-[13px] leading-relaxed mb-5">Master's thesis — adaptive multi-model fusion combining CLIPSeg, OMDet, and SAMv2 for zero-shot object detection. Deployed on Hello Robot Stretch 2 for autonomous home navigation and object search. Taught a robot to find things it's never seen before — which, honestly, is more than I can do most mornings.</p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">Python</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">PyTorch</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">ROS2</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">OpenCV</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">CLIPSeg</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">SAMv2</span>
+                        </div>
+                        <a href="https://ltu.edu/wp-content/uploads/2025/08/mscs-research.pdf" target="_blank" rel="noopener noreferrer" class="link-hover font-mono text-[11px] text-copper">↗ Read Thesis</a>
+                    </div>
                 </div>
-                <div class="edu-year">Jul 2022</div>
+
+                <!-- Snowblower — narrow -->
+                <div class="bento-narrow fade-in">
+                    <div class="project-card relative bg-surface border border-white/[0.04] rounded-xl p-6 md:p-8 overflow-hidden h-full">
+                        <div class="accent-bar absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-sage to-copper"></div>
+                        <div class="num-accent">02</div>
+                        <span class="font-mono text-[10px] tracking-[0.12em] uppercase px-2.5 py-1 rounded bg-sageDim text-sage inline-block mb-4">Robotics · Autonomous Systems</span>
+                        <h3 class="font-display text-cream text-lg mb-2 leading-tight">Autonomous Outdoor Snowblower</h3>
+                        <span class="inline-block font-mono text-[11px] text-sage bg-sageDim border border-sage/15 rounded px-2.5 py-1 mb-4">✦ 40+ hrs field validated · 30% latency ↓</span>
+                        <p class="text-warm/60 text-[13px] leading-relaxed mb-5">ROS2-based autonomous vehicle with RGB-D vision, potential-field path planning, and waypoint navigation. Collaborated on 30% sensor-fusion latency optimization. Michigan winters demand innovation.</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">ROS2</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">SLAM</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">RGB-D</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">Path Planning</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fingerprint — narrow, links to poster -->
+                <div class="bento-narrow fade-in">
+                    <div class="project-card relative bg-surface border border-white/[0.04] rounded-xl p-6 md:p-8 overflow-hidden h-full">
+                        <div class="accent-bar absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-rose to-copper"></div>
+                        <div class="num-accent">03</div>
+                        <span class="font-mono text-[10px] tracking-[0.12em] uppercase px-2.5 py-1 rounded bg-roseDim text-rose inline-block mb-4">Deep Learning · Biometrics</span>
+                        <h3 class="font-display text-cream text-lg mb-2 leading-tight">Fingerprint Biometric Analysis</h3>
+                        <span class="inline-block font-mono text-[11px] text-sage bg-sageDim border border-sage/15 rounded px-2.5 py-1 mb-4">✦ 98% accuracy · 3,400 images</span>
+                        <p class="text-warm/60 text-[13px] leading-relaxed mb-5">CNN-based fingerprint classification using VGG16, ResNet50, and EfficientNet with transfer learning across 17 individuals. Turns out every finger really is unique — we proved it with math.</p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">PyTorch</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">VGG16</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">ResNet50</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">Transfer Learning</span>
+                        </div>
+                        <a href="https://www.robofest.net/cj/fingerprint2024k.pdf" target="_blank" rel="noopener noreferrer" class="link-hover font-mono text-[11px] text-copper">↗ See poster presentation</a>
+                    </div>
+                </div>
+
+                <!-- Room Exploration — wide -->
+                <div class="bento-wide fade-in">
+                    <div class="project-card relative bg-surface border border-white/[0.04] rounded-xl p-6 md:p-8 overflow-hidden h-full">
+                        <div class="accent-bar absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-copper to-slate"></div>
+                        <div class="num-accent">04</div>
+                        <span class="font-mono text-[10px] tracking-[0.12em] uppercase px-2.5 py-1 rounded bg-sageDim text-sage inline-block mb-4">Robotics · SLAM</span>
+                        <h3 class="font-display text-cream text-xl md:text-2xl mb-2 leading-tight">Autonomous Room Exploration & Mapping</h3>
+                        <span class="inline-block font-mono text-[11px] text-sage bg-sageDim border border-sage/15 rounded px-2.5 py-1 mb-4">✦ 98% navigation accuracy · 10+ waypoints</span>
+                        <p class="text-warm/60 text-[13px] leading-relaxed mb-5">Complete ROS software stack for autonomous mobile robot exploration. Hector Mapping (SLAM) with AMCL localization and LiDAR-based obstacle avoidance. Drop it in a room it's never seen and it maps the whole thing. Honestly more spatially aware than most people.</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">ROS</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">Python</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">SLAM</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">AMCL</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">LiDAR</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evolutionary HP — half -->
+                <div class="bento-half fade-in">
+                    <div class="project-card relative bg-surface border border-white/[0.04] rounded-xl p-6 overflow-hidden h-full">
+                        <div class="accent-bar absolute top-0 left-0 right-0 h-[2px] bg-copper"></div>
+                        <span class="font-mono text-[10px] tracking-[0.12em] uppercase px-2.5 py-1 rounded bg-copperDim text-copper inline-block mb-3">Evolutionary ML</span>
+                        <h3 class="font-display text-cream text-base mb-2 leading-tight">Adaptive Hyperparameter Optimization</h3>
+                        <span class="inline-block font-mono text-[10px] text-sage bg-sageDim border border-sage/15 rounded px-2 py-0.5 mb-3">✦ 20% training reduction · 10% accuracy ↑</span>
+                        <p class="text-warm/60 text-[12px] leading-relaxed">Evolutionary strategies for automated neural network tuning. Tested on synthetic data and heart disease classification. Let natural selection do the hyperparameter grid search.</p>
+                    </div>
+                </div>
+
+                <!-- Stretch 2 Trash — half -->
+                <div class="bento-half fade-in">
+                    <div class="project-card relative bg-surface border border-white/[0.04] rounded-xl p-6 overflow-hidden h-full">
+                        <div class="accent-bar absolute top-0 left-0 right-0 h-[2px] bg-sage"></div>
+                        <span class="font-mono text-[10px] tracking-[0.12em] uppercase px-2.5 py-1 rounded bg-sageDim text-sage inline-block mb-3">Robotics · Manipulation</span>
+                        <h3 class="font-display text-cream text-base mb-2 leading-tight">Stretch 2 Autonomous Trash Collection</h3>
+                        <span class="inline-block font-mono text-[10px] text-sage bg-sageDim border border-sage/15 rounded px-2 py-0.5 mb-3">✦ Home service robot</span>
+                        <p class="text-warm/60 text-[12px] leading-relaxed">Autonomous object search and retrieval in home environments using Stretch 2 mobile manipulation robot. The robot picks up after you — the future we were promised.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2019 standalone + collection -->
+            <div class="bento mt-3 stagger">
+                <!-- Face Recognition AI — half -->
+                <div class="bento-half fade-in">
+                    <div class="project-card relative bg-surface border border-white/[0.04] rounded-xl p-6 overflow-hidden h-full">
+                        <div class="accent-bar absolute top-0 left-0 right-0 h-[2px] bg-rose"></div>
+                        <span class="font-mono text-[10px] tracking-[0.12em] uppercase px-2.5 py-1 rounded bg-roseDim text-rose inline-block mb-3">Computer Vision · AI</span>
+                        <h3 class="font-display text-cream text-base mb-1.5 leading-tight">Face Recognition AI</h3>
+                        <span class="inline-block font-mono text-[10px] text-muted mb-3">2019</span>
+                        <p class="text-warm/60 text-[12px] leading-relaxed">Real-time face recognition system using OpenCV for webcam-based identification. The first time I made a computer see — and it recognized me back.</p>
+                        <div class="flex flex-wrap gap-1.5 mt-3">
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">Python</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">OpenCV</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Autonomous Car — half -->
+                <div class="bento-half fade-in">
+                    <div class="project-card relative bg-surface border border-white/[0.04] rounded-xl p-6 overflow-hidden h-full">
+                        <div class="accent-bar absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-copper to-sage"></div>
+                        <span class="font-mono text-[10px] tracking-[0.12em] uppercase px-2.5 py-1 rounded bg-copperDim text-copper inline-block mb-3">Autonomous Systems · AI</span>
+                        <h3 class="font-display text-cream text-base mb-1.5 leading-tight">Autonomous Car Using AI</h3>
+                        <span class="inline-block font-mono text-[10px] text-muted mb-3">2019</span>
+                        <p class="text-warm/60 text-[12px] leading-relaxed">Converted an RC car into an autonomous vehicle — traffic signal recognition, lane detection, and obstacle avoidance with a camera duct-taped to the hood. The one that started everything.</p>
+                        <div class="flex flex-wrap gap-1.5 mt-3">
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">Arduino</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">Raspberry Pi</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">Python</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arduino Robotics Collection — full width -->
+                <div class="bento-full fade-in">
+                    <div class="project-card relative bg-surface border border-white/[0.04] rounded-xl p-6 md:p-8 overflow-hidden">
+                        <div class="accent-bar absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-sage via-copper to-slate"></div>
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <span class="font-mono text-[10px] tracking-[0.12em] uppercase px-2.5 py-1 rounded bg-sageDim text-sage inline-block mb-3">Hardware · Embedded · 2019</span>
+                                <h3 class="font-display text-cream text-lg md:text-xl leading-tight">Arduino Robotics & Sensor Collection</h3>
+                            </div>
+                            <span class="font-mono text-[10px] text-muted whitespace-nowrap mt-1">8 projects</span>
+                        </div>
+                        <p class="text-warm/60 text-[13px] leading-relaxed mb-5">A series of hardware projects built during undergrad — each one teaching a different concept in robotics, sensors, and embedded systems. Where the hands-on habit started and soldering burns were earned.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
+                            <span class="text-warm/50 text-[12px]"><span class="text-copper mr-1.5">→</span> Multi-Function Mobile Robot <span class="text-muted text-[10px] ml-1">line following · edge + obstacle avoidance · Bluetooth</span></span>
+                            <span class="text-warm/50 text-[12px]"><span class="text-copper mr-1.5">→</span> Ultrasonic Radar System <span class="text-muted text-[10px] ml-1">servo scan · graphical display</span></span>
+                            <span class="text-warm/50 text-[12px]"><span class="text-copper mr-1.5">→</span> Line Follower Bot <span class="text-muted text-[10px] ml-1">sensor-guided path following</span></span>
+                            <span class="text-warm/50 text-[12px]"><span class="text-copper mr-1.5">→</span> Edge Avoider Bot <span class="text-muted text-[10px] ml-1">surface edge detection</span></span>
+                            <span class="text-warm/50 text-[12px]"><span class="text-copper mr-1.5">→</span> Wall Follower Bot <span class="text-muted text-[10px] ml-1">perpendicular surface tracking</span></span>
+                            <span class="text-warm/50 text-[12px]"><span class="text-copper mr-1.5">→</span> Obstacle Avoider Bot <span class="text-muted text-[10px] ml-1">IR + ultrasonic sensors</span></span>
+                            <span class="text-warm/50 text-[12px]"><span class="text-copper mr-1.5">→</span> Alcohol Detection System <span class="text-muted text-[10px] ml-1">drunk driving prevention</span></span>
+                            <span class="text-warm/50 text-[12px]"><span class="text-copper mr-1.5">→</span> Fingerprint Door Unlock <span class="text-muted text-[10px] ml-1">biometric access control</span></span>
+                        </div>
+                        <div class="flex flex-wrap gap-1.5 mt-5">
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">Arduino</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">IR Sensors</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">Ultrasonic</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">Bluetooth</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">Servo Motors</span>
+                            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface2 text-muted">Fingerprint Sensor</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Skills -->
-        <section class="reveal">
-            <div class="section-label">Skills</div>
-            <div class="skills-grid">
-                <div class="skill-group">
-                    <h3>AI / ML</h3>
-                    <p>LangGraph, DSPy, MCP, RAG, PyTorch, OpenCV, Agent Orchestration, Tool Calling, Prompt Engineering</p>
+        <div class="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent"></div>
+
+        <!-- RESEARCH -->
+        <section id="research" class="py-20 md:py-28">
+            <div class="grid md:grid-cols-12 gap-8 md:gap-16">
+                <div class="md:col-span-4 fade-in">
+                    <span class="font-mono text-[10px] tracking-[0.18em] uppercase text-copper block mb-3">Research</span>
+                    <h2 class="font-display text-cream text-3xl md:text-4xl tracking-tight leading-[1.1]">The stuff with<br><span class="italic text-copper">citations.</span></h2>
                 </div>
-                <div class="skill-group">
-                    <h3>Backend</h3>
-                    <p>Python, TypeScript, FastAPI, Node.js/Express, PostgreSQL, Redis, Docker, AWS, REST APIs</p>
-                </div>
-                <div class="skill-group">
-                    <h3>Robotics</h3>
-                    <p>ROS2, Autonomous Navigation, SLAM, Sensor Fusion, Path Planning, Object Detection</p>
-                </div>
-                <div class="skill-group">
-                    <h3>Practices</h3>
-                    <p>System Design, Microservices, Multi-Tenant Architecture, CI/CD, Agile, Code Reviews</p>
+                <div class="md:col-span-8 space-y-4 stagger">
+                    <!-- IEEE -->
+                    <a href="https://ieeexplore.ieee.org/document/11164053" target="_blank" rel="noopener noreferrer" class="fade-in block group bg-surface border border-white/[0.04] rounded-xl p-5 md:p-6 hover:border-copper/20 transition-all hover:-translate-y-0.5">
+                        <div class="flex items-start gap-4">
+                            <span class="font-display text-4xl text-copper/10 leading-none shrink-0">01</span>
+                            <div>
+                                <span class="font-mono text-[10px] tracking-[0.1em] uppercase px-2.5 py-0.5 rounded-full" style="background:rgba(245,158,11,0.1);color:#f59e0b;">IEEE CASE 2025 · 2nd Author</span>
+                                <h3 class="text-cream font-semibold text-sm mt-2 mb-1 leading-snug group-hover:text-copper transition-colors">Augmenting Open Vocabulary Object Detection with Large Language Models for Home Service Robots</h3>
+                                <p class="font-mono text-[11px] text-muted">Eric Martinson, Hemanth Venkata Indurthi, CJ Chung</p>
+                                <span class="font-mono text-[10px] text-copper mt-2 inline-block group-hover:tracking-wider transition-all">↗ Read on IEEE Xplore</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Thesis -->
+                    <a href="https://ltu.edu/wp-content/uploads/2025/08/mscs-research.pdf" target="_blank" rel="noopener noreferrer" class="fade-in block group bg-surface border border-white/[0.04] rounded-xl p-5 md:p-6 hover:border-copper/20 transition-all hover:-translate-y-0.5">
+                        <div class="flex items-start gap-4">
+                            <span class="font-display text-4xl text-copper/10 leading-none shrink-0">02</span>
+                            <div>
+                                <span class="font-mono text-[10px] tracking-[0.1em] uppercase px-2.5 py-0.5 rounded-full" style="background:rgba(56,189,248,0.1);color:#38bdf8;">Master's Thesis · May 2025</span>
+                                <h3 class="text-cream font-semibold text-sm mt-2 mb-1 leading-snug group-hover:text-copper transition-colors">HybridNav: Multi-Model Zero-Shot Object Detection with Adaptive Exploration</h3>
+                                <p class="font-mono text-[11px] text-muted">25% accuracy gain via adaptive multi-model fusion; deployed on ROS2 mobile robot</p>
+                                <span class="font-mono text-[10px] text-copper mt-2 inline-block group-hover:tracking-wider transition-all">↗ Read thesis PDF</span>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- Contact -->
-        <section class="reveal">
-            <div class="section-label">Contact</div>
-            <div class="contact-row">
-                <a class="contact-btn primary" href="mailto:hvindurthi@gmail.com">Email me</a>
-                <a class="contact-btn" href="https://www.linkedin.com/in/hemanth-venkata-indurthi-99052219b/" target="_blank" rel="noopener">LinkedIn</a>
-                <a class="contact-btn" href="tel:+12202434434">&#128222; (220) 243-4434</a>
+        <div class="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent"></div>
+
+        <!-- EDUCATION + SKILLS -->
+        <section id="education" class="py-20 md:py-28">
+            <div class="grid md:grid-cols-12 gap-4 stagger">
+                <!-- Education -->
+                <div class="md:col-span-5 fade-in bg-surface border border-white/[0.04] rounded-xl p-6 md:p-8">
+                    <span class="font-mono text-[10px] tracking-[0.18em] uppercase text-copper block mb-5">Education</span>
+                    <div class="space-y-5">
+                        <div class="border-b border-white/[0.04] pb-4">
+                            <h3 class="text-cream font-semibold text-sm">M.S. Computer Science (Intelligent Systems)</h3>
+                            <p class="text-warm/60 text-[13px]">Lawrence Technological University, MI</p>
+                            <p class="text-copper/60 text-[12px]">Excellence in Graduate Research Award</p>
+                            <span class="font-mono text-[10px] text-muted">May 2025</span>
+                        </div>
+                        <div class="border-b border-white/[0.04] pb-4">
+                            <h3 class="text-cream font-semibold text-sm">B.Sc. Mathematics, Electronics, CS</h3>
+                            <p class="text-warm/60 text-[13px]">Osmania University, India</p>
+                            <span class="font-mono text-[10px] text-muted">Jul 2022</span>
+                        </div>
+                        <div>
+                            <h3 class="text-cream font-semibold text-sm">PG Certificate in AI & ML</h3>
+                            <p class="text-warm/60 text-[13px]">Great Lakes Institute & UT Austin McCombs</p>
+                            <span class="font-mono text-[10px] text-muted">2021</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="md:col-span-7 fade-in space-y-3">
+                    <div class="bg-surface border border-white/[0.04] rounded-xl p-5 md:p-6">
+                        <span class="font-mono text-[10px] tracking-[0.18em] uppercase text-copper block mb-3">AI / Agents</span>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="text-[13px] px-3 py-1 rounded-lg bg-surface2 border border-white/[0.04] text-warm/70 hover:text-cream hover:border-copper/30 transition-all cursor-default">LangGraph</span>
+                            <span class="text-[13px] px-3 py-1 rounded-lg bg-surface2 border border-white/[0.04] text-warm/70 hover:text-cream hover:border-copper/30 transition-all cursor-default">DSPy</span>
+                            <span class="text-[13px] px-3 py-1 rounded-lg bg-surface2 border border-white/[0.04] text-warm/70 hover:text-cream hover:border-copper/30 transition-all cursor-default">MCP</span>
+                            <span class="text-[13px] px-3 py-1 rounded-lg bg-surface2 border border-white/[0.04] text-warm/70 hover:text-cream hover:border-copper/30 transition-all cursor-default">RAG</span>
+                            <span class="text-[13px] px-3 py-1 rounded-lg bg-surface2 border border-white/[0.04] text-warm/70 hover:text-cream hover:border-copper/30 transition-all cursor-default">Agent Orchestration</span>
+                            <span class="text-[13px] px-3 py-1 rounded-lg bg-surface2 border border-white/[0.04] text-warm/70 hover:text-cream hover:border-copper/30 transition-all cursor-default">Tool Calling</span>
+                            <span class="text-[13px] px-3 py-1 rounded-lg bg-surface2 border border-white/[0.04] text-warm/70 hover:text-cream hover:border-copper/30 transition-all cursor-default">LiteLLM</span>
+                            <span class="text-[13px] px-3 py-1 rounded-lg bg-surface2 border border-white/[0.04] text-warm/70 hover:text-cream hover:border-copper/30 transition-all cursor-default">Prompt Engineering</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-surface border border-white/[0.04] rounded-xl p-5">
+                            <span class="font-mono text-[10px] tracking-[0.18em] uppercase text-copper block mb-3">ML / Vision</span>
+                            <div class="flex flex-wrap gap-1.5"><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">PyTorch</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">OpenCV</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">CNNs</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">Object Detection</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">Zero-Shot</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">Segmentation</span></div>
+                        </div>
+                        <div class="bg-surface border border-white/[0.04] rounded-xl p-5">
+                            <span class="font-mono text-[10px] tracking-[0.18em] uppercase text-copper block mb-3">Robotics</span>
+                            <div class="flex flex-wrap gap-1.5"><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">ROS2</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">SLAM</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">Nav2</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">Sensor Fusion</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">Path Planning</span></div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-surface border border-white/[0.04] rounded-xl p-5">
+                            <span class="font-mono text-[10px] tracking-[0.18em] uppercase text-copper block mb-3">Backend</span>
+                            <div class="flex flex-wrap gap-1.5"><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">Python</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">TypeScript</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">FastAPI</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">Node.js</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">PostgreSQL</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">Redis</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">Docker</span></div>
+                        </div>
+                        <div class="bg-surface border border-white/[0.04] rounded-xl p-5">
+                            <span class="font-mono text-[10px] tracking-[0.18em] uppercase text-copper block mb-3">Cloud & Community</span>
+                            <div class="flex flex-wrap gap-1.5"><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">AWS</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">CI/CD</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">Agile</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">IEEE Member</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">ICRA 2025</span><span class="text-[12px] px-2.5 py-0.5 rounded bg-surface2 text-warm/60">Robofest Judge</span></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <footer>
-            <p>&copy; 2026 Hemanth Venkata Indurthi &middot; Built with intent</p>
-        </footer>
+        <div class="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent"></div>
 
-    </div>
+        <!-- CONTACT -->
+        <section id="contact" class="py-24 md:py-32 text-center">
+            <div class="fade-in max-w-lg mx-auto">
+                <span class="font-mono text-[10px] tracking-[0.18em] uppercase text-copper block mb-4">Contact</span>
+                <h2 class="font-display text-cream text-4xl md:text-5xl tracking-tight mb-4">I don't bite<span class="italic text-copper">.</span></h2>
+                <p class="text-warm/60 text-sm leading-relaxed mb-8">Open to AI/ML, robotics, and software engineering roles. F-1 OPT with STEM extension eligibility — available immediately. Will relocate for the right opportunity.</p>
+                <div class="flex flex-wrap gap-3 justify-center">
+                    <a href="mailto:hvindurthi@gmail.com" class="inline-flex items-center gap-2 bg-copper text-base font-mono text-xs tracking-wide uppercase px-6 py-3 rounded-lg hover:bg-copperLight transition-all hover:-translate-y-0.5" onclick="copyEmail(event)">✉ hvindurthi@gmail.com</a>
+                    <a href="https://www.linkedin.com/in/hemanth-venkata-indurthi-99052219b/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 border border-white/[0.08] text-warm font-mono text-xs tracking-wide uppercase px-6 py-3 rounded-lg hover:border-copper/40 hover:text-copper transition-all">↗ LinkedIn</a>
+                    <a href="https://github.com/itsmoihemanth" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 border border-white/[0.08] text-warm font-mono text-xs tracking-wide uppercase px-6 py-3 rounded-lg hover:border-copper/40 hover:text-copper transition-all">↗ GitHub</a>
+                    <a href="tel:+12202434434" class="inline-flex items-center gap-2 border border-white/[0.08] text-warm font-mono text-xs tracking-wide uppercase px-6 py-3 rounded-lg hover:border-copper/40 hover:text-copper transition-all">☎ (220) 243-4434</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-white/[0.04] text-center py-6">
+        <p class="font-mono text-[11px] text-muted">&copy; 2026 Hemanth Venkata Indurthi · Robots haven't taken this job yet</p>
+    </footer>
+
+    <div id="copy-toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-surface2 border border-copper/30 text-copper font-mono text-xs px-4 py-2 rounded-lg shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 z-[100]">Copied to clipboard</div>
 
     <script>
-        // Scroll-triggered reveal
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // Subtle orb parallax on scroll
-        const orb1 = document.querySelector('.orb-1');
-        const orb2 = document.querySelector('.orb-2');
-        let ticking = false;
-
+        function copyEmail(e) {
+            e.preventDefault();
+            navigator.clipboard.writeText('hvindurthi@gmail.com');
+            const toast = document.getElementById('copy-toast');
+            toast.style.opacity = '1';
+            setTimeout(() => { toast.style.opacity = '0'; }, 1500);
+        }
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+        function closeMobileMenu() {
+            mobileMenu.classList.add('hidden');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            iconOpen.classList.remove('hidden');
+            iconClose.classList.add('hidden');
+        }
+        menuToggle.addEventListener('click', () => {
+            const open = mobileMenu.classList.toggle('hidden');
+            menuToggle.setAttribute('aria-expanded', !open);
+            iconOpen.classList.toggle('hidden');
+            iconClose.classList.toggle('hidden');
+        });
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+        }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+        document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('nav a[href^="#"]');
         window.addEventListener('scroll', () => {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    const y = window.scrollY;
-                    orb1.style.transform = 'translateY(' + (y * 0.15) + 'px)';
-                    orb2.style.transform = 'translateY(' + (y * -0.1) + 'px)';
-                    ticking = false;
-                });
-                ticking = true;
-            }
+            let current = '';
+            sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) current = 'contact';
+            navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + current); });
         });
     </script>
 </body>
