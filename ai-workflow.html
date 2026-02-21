@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How I Build With AI | Hemanth Venkata Indurthi</title>
+    <meta name="description" content="A walkthrough of how I use Claude Code, Speckit, and GSD to ship production software — from architecture to deployment.">
+    <meta property="og:title" content="How I Build With AI | Hemanth Venkata Indurthi">
+    <meta property="og:description" content="Speckit for planning. GSD for execution. Human judgment for everything in between.">
+    <meta property="og:type" content="article">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Manrope:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --base: #0e0e0e;
+            --surface: #161616;
+            --surface2: #1e1e1e;
+            --surface3: #272727;
+            --cream: #f0ebe3;
+            --warm: #c4b5a3;
+            --muted: #7a7368;
+            --copper: #c8906a;
+            --copper-light: #daa882;
+            --copper-dim: rgba(200,144,106,0.08);
+            --sage: #8fa68c;
+            --sage-dim: rgba(143,166,140,0.08);
+            --rose: #c48a8a;
+            --code-bg: #1a1a1a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--base);
+            color: var(--warm);
+            font-family: 'Manrope', -apple-system, sans-serif;
+            font-size: 15px;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.018'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        ::selection { background: rgba(200,144,106,0.25); color: var(--cream); }
+
+        a { color: var(--copper); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: var(--copper-light); }
+
+        .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+        /* ─── Top bar ─── */
+        .topbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+            background: rgba(14,14,14,0.92); backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .topbar-inner {
+            max-width: 720px; margin: 0 auto; padding: 0 24px;
+            height: 48px; display: flex; align-items: center; justify-content: space-between;
+        }
+        .topbar-brand {
+            font-family: 'IBM Plex Mono', monospace; font-size: 12px;
+            color: var(--cream); letter-spacing: -0.02em;
+        }
+        .topbar-brand span { color: var(--copper); }
+        .topbar-links { display: flex; gap: 16px; align-items: center; }
+        .topbar-links a {
+            font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            color: var(--muted); transition: color 0.2s;
+        }
+        .topbar-links a:hover { color: var(--copper); }
+
+        /* ─── Hero ─── */
+        .hero {
+            padding: 120px 0 48px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .hero-eyebrow {
+            font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+            letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--sage); display: inline-flex; align-items: center; gap: 8px;
+            border: 1px solid rgba(143,166,140,0.2); border-radius: 100px;
+            padding: 6px 16px; margin-bottom: 24px;
+        }
+        .hero-eyebrow::before {
+            content: ''; width: 6px; height: 6px; border-radius: 50%;
+            background: var(--sage); animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .hero h1 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: clamp(2.4rem, 5vw, 3.4rem); font-weight: 700;
+            color: var(--cream); letter-spacing: -0.03em;
+            line-height: 1.05; margin-bottom: 16px;
+        }
+        .hero h1 em { font-style: italic; color: var(--copper); font-weight: 600; }
+        .hero-sub {
+            font-size: 16px; color: rgba(196,181,163,0.65);
+            max-width: 560px; line-height: 1.6; margin-bottom: 24px; font-weight: 300;
+        }
+        .hero-sub strong { color: var(--cream); font-weight: 500; }
+        .hero-meta {
+            display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+        }
+        .hero-meta .tag {
+            font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            color: var(--muted); padding: 4px 10px; border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        /* ─── Content sections ─── */
+        .section { padding: 48px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .section:last-of-type { border-bottom: none; }
+
+        .section-label {
+            font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+            letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--copper); margin-bottom: 12px;
+        }
+
+        h2 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.6rem; font-weight: 600; color: var(--cream);
+            letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 16px;
+        }
+        h2 em { font-style: italic; color: var(--copper); font-weight: 600; }
+
+        h3 {
+            font-size: 15px; font-weight: 600; color: var(--cream);
+            margin: 28px 0 8px;
+        }
+
+        p { margin-bottom: 14px; color: rgba(196,181,163,0.68); }
+        p strong { color: var(--cream); font-weight: 600; }
+
+        /* ─── Workflow diagram ─── */
+        .workflow-grid {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+            margin: 24px 0;
+        }
+        @media (max-width: 600px) { .workflow-grid { grid-template-columns: 1fr; } }
+        .workflow-card {
+            background: var(--surface); border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 12px; padding: 20px; position: relative; overflow: hidden;
+        }
+        .workflow-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+        }
+        .workflow-card:nth-child(1)::before { background: var(--copper); }
+        .workflow-card:nth-child(2)::before { background: var(--sage); }
+        .workflow-card:nth-child(3)::before { background: var(--rose); }
+        .workflow-card .tool-name {
+            font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+            font-weight: 500; color: var(--copper); margin-bottom: 4px;
+            letter-spacing: 0.04em;
+        }
+        .workflow-card:nth-child(2) .tool-name { color: var(--sage); }
+        .workflow-card:nth-child(3) .tool-name { color: var(--rose); }
+        .workflow-card .tool-title {
+            font-weight: 600; font-size: 14px; color: var(--cream); margin-bottom: 6px;
+        }
+        .workflow-card .tool-desc {
+            font-size: 12px; color: rgba(196,181,163,0.5); line-height: 1.5;
+        }
+        .workflow-arrow {
+            display: none; align-self: center; text-align: center;
+            color: var(--muted); font-size: 18px;
+        }
+
+        /* ─── Decision tree ─── */
+        .decision-list { list-style: none; padding: 0; margin: 16px 0; }
+        .decision-list li {
+            padding: 12px 16px; margin-bottom: 8px;
+            background: var(--surface); border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 8px; font-size: 13.5px; color: rgba(196,181,163,0.7);
+            display: flex; gap: 12px; align-items: flex-start;
+        }
+        .decision-list li .arrow {
+            color: var(--copper); font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px; flex-shrink: 0; margin-top: 1px;
+        }
+        .decision-list li strong { color: var(--cream); font-weight: 600; }
+
+        /* ─── Code blocks ─── */
+        .code-flow {
+            background: var(--code-bg); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 8px; padding: 16px 20px; margin: 16px 0;
+            font-family: 'IBM Plex Mono', monospace; font-size: 12px;
+            line-height: 1.7; color: rgba(196,181,163,0.6); overflow-x: auto;
+        }
+        .code-flow .cmd { color: var(--copper); }
+        .code-flow .comment { color: var(--muted); font-style: italic; }
+        .code-flow .label { color: var(--sage); font-weight: 500; }
+
+        /* ─── Example callout ─── */
+        .callout {
+            background: var(--surface); border: 1px solid rgba(255,255,255,0.04);
+            border-left: 3px solid var(--copper); border-radius: 0 8px 8px 0;
+            padding: 16px 20px; margin: 20px 0;
+        }
+        .callout-title {
+            font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            color: var(--copper); margin-bottom: 6px;
+        }
+        .callout p { font-size: 13.5px; margin-bottom: 8px; }
+        .callout p:last-child { margin-bottom: 0; }
+
+        .callout-sage { border-left-color: var(--sage); }
+        .callout-sage .callout-title { color: var(--sage); }
+        .callout-rose { border-left-color: var(--rose); }
+        .callout-rose .callout-title { color: var(--rose); }
+
+        /* ─── Two-column comparison ─── */
+        .compare-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+            margin: 20px 0;
+        }
+        @media (max-width: 600px) { .compare-grid { grid-template-columns: 1fr; } }
+        .compare-card {
+            background: var(--surface); border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 10px; padding: 20px;
+        }
+        .compare-card h4 {
+            font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+            letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;
+        }
+        .compare-card:first-child h4 { color: var(--sage); }
+        .compare-card:last-child h4 { color: var(--rose); }
+        .compare-card ul {
+            list-style: none; padding: 0;
+        }
+        .compare-card ul li {
+            font-size: 13px; color: rgba(196,181,163,0.6);
+            padding: 4px 0; padding-left: 16px; position: relative;
+        }
+        .compare-card ul li::before {
+            content: '→'; position: absolute; left: 0;
+            color: var(--muted); font-size: 11px;
+        }
+
+        /* ─── Result banner ─── */
+        .result-banner {
+            background: linear-gradient(135deg, rgba(200,144,106,0.06), rgba(143,166,140,0.06));
+            border: 1px solid rgba(200,144,106,0.12);
+            border-radius: 12px; padding: 24px; margin: 24px 0;
+            text-align: center;
+        }
+        .result-stats {
+            display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        .result-stat .num {
+            font-family: 'Fraunces', serif; font-size: 1.8rem;
+            font-weight: 700; color: var(--copper); line-height: 1;
+        }
+        .result-stat .label {
+            font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+            color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em;
+            margin-top: 4px;
+        }
+
+        /* ─── Footer ─── */
+        .footer {
+            padding: 48px 0 32px; text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+        .footer-links {
+            display: flex; justify-content: center; gap: 12px;
+            flex-wrap: wrap; margin-bottom: 16px;
+        }
+        .footer-links a {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+            letter-spacing: 0.06em; text-transform: uppercase;
+            padding: 8px 16px; border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.06);
+            color: var(--warm); transition: all 0.2s;
+        }
+        .footer-links a:hover {
+            border-color: rgba(200,144,106,0.3); color: var(--copper);
+        }
+        .footer-links a.primary {
+            background: var(--copper); color: var(--base); border-color: transparent;
+        }
+        .footer-links a.primary:hover { background: var(--copper-light); }
+        .footer-note {
+            font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+            color: var(--muted); letter-spacing: 0.04em;
+        }
+
+        /* ─── Fade animations ─── */
+        .fade-in {
+            opacity: 0; transform: translateY(16px);
+            transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+        }
+        .fade-in.show { opacity: 1; transform: translateY(0); }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--base); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+    </style>
+</head>
+<body>
+
+    <!-- Top bar -->
+    <nav class="topbar">
+        <div class="topbar-inner">
+            <a href="https://github.com/itsmoihemanth" class="topbar-brand" target="_blank">Code<span>Cur8or</span></a>
+            <div class="topbar-links">
+                <a href="https://ieeexplore.ieee.org/document/11164053" target="_blank">IEEE Paper</a>
+                <a href="https://www.linkedin.com/in/hemanth-venkata-indurthi-99052219b/" target="_blank">LinkedIn</a>
+                <a href="mailto:hvindurthi@gmail.com">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <!-- Hero -->
+        <header class="hero fade-in">
+            <div class="hero-eyebrow">Process writeup</div>
+            <h1>How I Build<br>With <em>AI.</em></h1>
+            <p class="hero-sub">
+                I ship production software with <strong>Claude Code</strong> every day. Not side projects — real backends processing orders, multi-agent platforms deployed to staging, fulfillment systems integrating third-party APIs. This is how the workflow actually works.
+            </p>
+            <div class="hero-meta">
+                <span class="tag">Hemanth Venkata Indurthi</span>
+                <span class="tag">AI Engineer</span>
+                <span class="tag">IEEE CASE 2025</span>
+                <span class="tag">M.S. Intelligent Systems</span>
+            </div>
+        </header>
+
+        <!-- The Toolchain -->
+        <section class="section fade-in">
+            <div class="section-label">01 — Toolchain</div>
+            <h2>Speckit thinks. GSD builds.<br>I <em>review.</em></h2>
+
+            <p>My development stack is built around <strong>Claude Code</strong> with two plugins that handle different phases of work:</p>
+
+            <div class="workflow-grid">
+                <div class="workflow-card">
+                    <div class="tool-name">Speckit</div>
+                    <div class="tool-title">Plan & specify</div>
+                    <div class="tool-desc">
+                        Spec-driven development. Define principles → specify requirements → generate implementation plan → break into dependency-ordered tasks. The AI does the thinking <em>before</em> it touches code.
+                    </div>
+                </div>
+                <div class="workflow-card">
+                    <div class="tool-name">GSD</div>
+                    <div class="tool-title">Execute & verify</div>
+                    <div class="tool-desc">
+                        Fresh Claude instances per task. No context rot. Plan → execute → verify with atomic commits and built-in verification. For quick fixes: <code>/gsd:quick</code> skips planning entirely.
+                    </div>
+                </div>
+                <div class="workflow-card">
+                    <div class="tool-name">Me</div>
+                    <div class="tool-title">Judge & correct</div>
+                    <div class="tool-desc">
+                        Review architecture decisions, catch security gaps, fix edge cases, and know when to skip AI entirely. The most important tool in the chain isn't a tool — it's judgment.
+                    </div>
+                </div>
+            </div>
+
+            <p style="margin-top: 8px;"><strong>The decision tree is simple:</strong></p>
+
+            <ul class="decision-list">
+                <li>
+                    <span class="arrow">→</span>
+                    <span><strong>Complex feature or new system?</strong> Speckit first (plan), then GSD per task (execute). Full spec-driven flow.</span>
+                </li>
+                <li>
+                    <span class="arrow">→</span>
+                    <span><strong>Single well-scoped task?</strong> Straight to <code style="color:var(--sage)">/gsd:quick "description"</code>. Same quality guarantees, faster path.</span>
+                </li>
+                <li>
+                    <span class="arrow">→</span>
+                    <span><strong>Quick fix I already know how to solve?</strong> No AI. I open the file and fix it myself. Wasting tokens on a one-line change you already understand is an anti-pattern.</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Real example -->
+        <section class="section fade-in">
+            <div class="section-label">02 — Real Example</div>
+            <h2>Building a fulfillment backend <em>from scratch.</em></h2>
+
+            <p>I recently built a complete fulfillment backend — order management, 3PL integration, payment processing, multi-tenant credential management — from zero to processing test orders in <strong>under three weeks</strong>. Here's how the workflow played out.</p>
+
+            <h3>Phase 1: Speckit Planning</h3>
+
+            <div class="code-flow">
+                <span class="comment"># Define system boundary, user stories, constraints</span><br>
+                <span class="cmd">/speckit.specify</span> → requirements + acceptance criteria<br><br>
+                <span class="comment"># Generate technical implementation plan</span><br>
+                <span class="cmd">/speckit.plan</span> → architecture, API design, data model<br><br>
+                <span class="comment"># Break into dependency-ordered tasks</span><br>
+                <span class="cmd">/speckit.tasks</span> → 7 core tables, API routes, integrations
+            </div>
+
+            <div class="callout">
+                <div class="callout-title">Where my review mattered</div>
+                <p>The AI's first plan had the payment flow calling the shipping API <strong>synchronously</strong> inside the order creation endpoint. I caught this — payment confirmation and label generation are separate concerns that should be decoupled. Pushed it to an event-driven pattern with status tracking.</p>
+                <p><strong>The AI doesn't understand your production failure modes. You do.</strong></p>
+            </div>
+
+            <h3>Phase 2: GSD Execution</h3>
+
+            <div class="code-flow">
+                <span class="comment"># Execute each task group through GSD</span><br>
+                <span class="cmd">/gsd:plan-phase</span> <span class="label">3</span> → ShipStation 3PL integration<br>
+                <span class="cmd">/gsd:execute-phase</span> <span class="label">3</span> → webhook handler, label gen, tracking sync<br>
+                <span class="cmd">/gsd:verify-work</span> <span class="label">3</span> → automated verification checks
+            </div>
+
+            <div class="callout callout-sage">
+                <div class="callout-title">Two catches during review</div>
+                <p><strong>Security:</strong> The generated code stored API credentials in a config file. I redirected to AWS KMS encryption with per-tenant isolation — the AI defaulted to the simplest approach, not the secure one.</p>
+                <p><strong>Reliability:</strong> Rate-limiting logic didn't account for the API's burst limits during batch operations. I restructured with queuing and exponential backoff based on actual API documentation the AI hadn't internalized.</p>
+            </div>
+
+            <h3>Phase 3: Straight-to-Code Fixes</h3>
+
+            <div class="callout callout-rose">
+                <div class="callout-title">No AI needed</div>
+                <p>After integration testing, I found a PostgreSQL query returning stale inventory counts — missing join condition. I didn't spin up Claude for this. I already saw the issue in the query plan, opened the file, fixed the <code>WHERE</code> clause. Three-second fix. Using AI here would have been slower than just typing.</p>
+            </div>
+
+            <div class="result-banner">
+                <p style="color: var(--cream); font-weight: 500; font-size: 14px; margin-bottom: 4px;">Result</p>
+                <div class="result-stats">
+                    <div class="result-stat">
+                        <div class="num">100+</div>
+                        <div class="label">Test orders processed</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="num">98%</div>
+                        <div class="label">Success rate</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="num">&lt;200ms</div>
+                        <div class="label">p95 API response</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="num">~3 wks</div>
+                        <div class="label">Zero to production</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Where AI excels vs. needs me -->
+        <section class="section fade-in">
+            <div class="section-label">03 — Mental Model</div>
+            <h2>Where AI excels vs. where it <em>needs me.</em></h2>
+
+            <p>After six months of daily production use, I've developed a clear framework:</p>
+
+            <div class="compare-grid">
+                <div class="compare-card">
+                    <h4>✦ AI excels at</h4>
+                    <ul>
+                        <li>Scaffolding — schemas, boilerplate, CRUD, test structures</li>
+                        <li>Pattern replication — once shown one integration, it replicates cleanly</li>
+                        <li>Documentation and type definitions — tedious but reliable</li>
+                        <li>Exploring unfamiliar APIs — faster than reading docs start to finish</li>
+                    </ul>
+                </div>
+                <div class="compare-card">
+                    <h4>✦ Needs human judgment</h4>
+                    <ul>
+                        <li>Architecture — data flow, service boundaries, coupling decisions</li>
+                        <li>Security — credential storage, tenant isolation, encryption scope</li>
+                        <li>Performance at scale — the AI writes code that works; I make it <em>perform</em></li>
+                        <li>Error handling in distributed systems — retry logic, partial failures, idempotency</li>
+                        <li>Domain-specific edge cases — business logic the AI can't infer from code</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why this matters -->
+        <section class="section fade-in">
+            <div class="section-label">04 — The Point</div>
+            <h2>The skill isn't typing faster.<br>It's <em>knowing when.</em></h2>
+
+            <p>The value I bring isn't speed — it's judgment. Knowing <strong>when</strong> to delegate to the AI, <strong>when</strong> to take the wheel, and <strong>when</strong> to skip AI entirely is the actual skill. My Speckit + GSD workflow gives me structure, fresh contexts prevent quality drift, and the clear phase separation means I'm reviewing at every stage — not rubber-stamping output.</p>
+
+            <p>I've shipped a <strong>multi-agent AI platform</strong> (LangGraph, 40+ MCP tools, dual-layer RAG) and a <strong>production fulfillment backend</strong> this way. Both from scratch, both in months, both with measurable results.</p>
+
+            <p>The same approach — structured planning, AI-powered execution, human-driven review — is exactly how I'd build solutions for customers.</p>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer fade-in">
+            <div class="footer-links">
+                <a href="mailto:hvindurthi@gmail.com" class="primary">✉ hvindurthi@gmail.com</a>
+                <a href="https://ieeexplore.ieee.org/document/11164053" target="_blank">↗ IEEE Paper</a>
+                <a href="https://www.linkedin.com/in/hemanth-venkata-indurthi-99052219b/" target="_blank">↗ LinkedIn</a>
+                <a href="https://github.com/itsmoihemanth" target="_blank">↗ GitHub</a>
+            </div>
+            <p class="footer-note">
+                F-1 OPT (STEM extension eligible) · Available immediately · Open to relocation<br>
+                © 2026 Hemanth Venkata Indurthi
+            </p>
+        </footer>
+
+    </main>
+
+    <script>
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+        }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+        document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+    </script>
+
+</body>
+</html>
